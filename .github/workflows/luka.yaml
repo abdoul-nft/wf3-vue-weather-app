@@ -49,7 +49,7 @@ jobs:
       - run: npm ci
       - run: npm run build
   deploy:
-    needs: [build, lint, test-coverage, test-unit]
+    needs: [lint, test-coverage, test-unit]
     runs-on: ubuntu-latest
     steps:
       - run: echo "🔎 Deployement"
