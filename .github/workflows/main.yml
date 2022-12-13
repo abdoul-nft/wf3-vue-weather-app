@@ -17,6 +17,18 @@ jobs:
     - run: npm run test:unit
     - run: npm run test:coverage
     - run: npm run lint
+    test-unit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - run: npm install
+    - run: npm i bootstrap
+    - run: npm run test:unit
+    - run: npm run test:coverage
+    - run: npm run lint
   build:
     runs-on: ubuntu-latest
     steps:
