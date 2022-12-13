@@ -1,12 +1,70 @@
+# name: Vue.js build and deploy
+
+# on:
+#   push:
+#     branches:
+#       - nad-workflow
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run test:unit
+#   test-coverage:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run test:coverage
+#   lint:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run lint
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm ci
+#     - run: npm run build
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - run: echo "🔎 Deployement"
+
 name: Vue.js build and deploy
 
 on:
   push:
     branches:
-      - nad-workflow
+      - nad-2
 
 jobs:
-  test:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - run:  echo "🔎 Le pipline commence ici !"
+  test-unit:
+    needs: init
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,6 +74,7 @@ jobs:
     - run: npm install
     - run: npm run test:unit
   test-coverage:
+    needs: init
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -25,6 +84,7 @@ jobs:
     - run: npm install
     - run: npm run test:coverage
   lint:
+    needs: [init, test-unit, test-coverage]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -34,6 +94,7 @@ jobs:
     - run: npm install
     - run: npm run lint
   build:
+    needs: [init, test-unit, test-coverage, lint]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -43,6 +104,12 @@ jobs:
     - run: npm ci
     - run: npm run build
   deploy:
+    needs: [init, test-unit, test-coverage, lint]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Deployement"
+  fin:
+    needs: [init, test-unit, test-coverage, lint, build, deploy]
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "🔎 Le pipeline se termine ici"
