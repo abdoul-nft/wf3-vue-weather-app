@@ -18,6 +18,7 @@ jobs:
 
   test-coverage:
     runs-on: ubuntu-latest
+    needs: [test-unit]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -28,6 +29,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    needs: [test-coverage, test-unit]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -38,6 +40,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: [lint, test-coverage, test-unit]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -46,6 +49,7 @@ jobs:
       - run: npm ci
       - run: npm run build
   deploy:
+    needs: [build, lint, test-coverage, test-unit]
     runs-on: ubuntu-latest
     steps:
       - run: echo "🔎 Deployement"
