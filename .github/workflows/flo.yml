@@ -3,64 +3,64 @@ name: Vue.js build and deploy
 on:
   push:
     branches:
-      - main
+      - flo3
 
 jobs:
   init:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - run:  echo "🔎 Le pipline commence ici !"
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "🔎 Le pipline commence ici !"
   test-unit:
     needs: init
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - run: npm install
-    - run: npm run test:unit
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run test:unit
   test-coverage:
     needs: init
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - run: npm install
-    - run: npm run test:coverage
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run test:coverage
   lint:
     needs: [init, test-unit, test-coverage]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - run: npm install
-    - run: npm run lint
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run lint
   build:
     needs: [init, test-unit, test-coverage, lint]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - run: npm ci
-    - run: npm run build
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run build
   deploy:
     needs: [test-unit, test-coverage, lint, build]
     runs-on: ubuntu-latest
     steps:
-    - run: echo "🔎 Deployement"
+      - run: echo "🔎 Deployement"
   fin:
     needs: [init, test-unit, test-coverage, lint, build, deploy]
     runs-on: ubuntu-latest
     steps:
-    - run: echo "🔎 Le pipeline se termine ici"
+      - run: echo "🔎 Le pipeline se termine ici"
