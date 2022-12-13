@@ -14,8 +14,17 @@ jobs:
       with:
         node-version: 16.x
     - run: npm install
+    
+    
+    
+
+  unit:
     - run: npm run test:unit
+  
+  coverage:
     - run: npm run test:coverage
+
+  lint:
     - run: npm run lint
   build:
     runs-on: ubuntu-latest
