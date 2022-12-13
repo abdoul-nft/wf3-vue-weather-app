@@ -16,6 +16,7 @@ jobs:
     - run: npm install
     - run: npm run test:unit
   test-coverage:
+    needs: test-unit
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -25,6 +26,7 @@ jobs:
     - run: npm install
     - run: npm run test:coverage
   lint:
+    needs: [test-unit, test-coverage]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -34,6 +36,7 @@ jobs:
     - run: npm install
     - run: npm run lint
   build:
+    needs: [test-unit, test-coverage, lint]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -43,6 +46,7 @@ jobs:
     - run: npm ci
     - run: npm run build
   deploy:
+    needs: [test-unit, test-coverage, lint, build]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Deployement"
