@@ -52,7 +52,7 @@ name: Vue.js build and deploy
 on:
   push:
     branches:
-      - nad-2
+      - nad-workflow
 
 jobs:
   init:
