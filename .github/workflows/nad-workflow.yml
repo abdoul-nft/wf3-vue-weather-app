@@ -119,6 +119,106 @@
 # ----------------------------------------------
 
 # EXO 1
+# name: Vue.js build and deploy
+
+# on:
+#   push:
+#     branches:
+#       - nad-workflow
+
+# jobs:
+#   init:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run:  echo "🔎 Le pipline commence ici !"
+#   a:
+#     needs: init
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run test:unit
+#   b:
+#     needs: init
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run test:coverage
+#   c:
+#     needs: init
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run test:coverage
+#   d:
+#     needs: init
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run test:coverage
+#   e:
+#     needs: [init, a,b,c,d]
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run lint
+#   f:
+#     needs: [init, a,b,c,d]
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm install
+#     - run: npm run lint
+#   build:
+#     needs: [init, a, b, c, d ,e, f ]
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: 16.x
+#     - run: npm ci
+#     - run: npm run build
+#   deploy:
+#     needs: [init, a, b, c, d ,e, f, build, ]
+#     runs-on: ubuntu-latest
+#     steps:
+#     - run: echo "🔎 Deployement"
+#   fin:
+#     needs: [init,  a, b, c, d ,e, f, build, deploy]
+#     runs-on: ubuntu-latest
+#     steps:
+#     - run: echo "🔎 Le pipeline se termine ici"
+
+# -------------------------------------------------------------
+
+# EXO 2
 name: Vue.js build and deploy
 
 on:
@@ -156,7 +256,7 @@ jobs:
     - run: npm install
     - run: npm run test:coverage
   c:
-    needs: init
+    needs: [init, a,b]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -166,7 +266,7 @@ jobs:
     - run: npm install
     - run: npm run test:coverage
   d:
-    needs: init
+    needs: [init, a,b]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -186,7 +286,17 @@ jobs:
     - run: npm install
     - run: npm run lint
   f:
-    needs: [init, a,b,c,d]
+    needs: [init, a,b,c,d,e]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - run: npm install
+    - run: npm run lint
+  g:
+    needs: [init, a,b,c,d,e]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -196,7 +306,7 @@ jobs:
     - run: npm install
     - run: npm run lint
   build:
-    needs: [init, a, b, c, d ,e, f ]
+    needs: [init, a, b, c, d ,e, f ,g]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -206,16 +316,14 @@ jobs:
     - run: npm ci
     - run: npm run build
   deploy:
-    needs: [init, a, b, c, d ,e, f, build, ]
+    needs: [init, a, b, c, d ,e, f, g, build, ]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Deployement"
   fin:
-    needs: [init,  a, b, c, d ,e, f, build, deploy]
+    needs: [init,  a, b, c, d ,e, f, g, build, deploy]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Le pipeline se termine ici"
 
-# -------------------------------------------------------------
-
-# EXO 2
+# ----------------------------------------------------------------------
