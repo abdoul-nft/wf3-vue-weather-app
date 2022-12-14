@@ -93,7 +93,7 @@ jobs:
     - run: npm run lint
     # =========================
   build:
-    needs: [init, a, b, c, d ,e, f ]
+    needs: [init, a, b, c, d ,e, f ,g]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -104,12 +104,12 @@ jobs:
     - run: npm run build
     # =========================
   deploy:
-    needs: [init, a, b, c, d ,e, f, build, ]
+    needs: [init, a, b, c, d ,e, f, g, build, ]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Deployement"
   fin:
-    needs: [init,  a, b, c, d ,e, f, build, deploy]
+    needs: [init,  a, b, c, d ,e, f, g, build, deploy]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Le pipeline se termine ici"
