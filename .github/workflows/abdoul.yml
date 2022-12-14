@@ -30,7 +30,7 @@ jobs:
     steps:
       - run:  echo "Job c !"
   d:
-    needs: [a,b]
+    needs: init
     runs-on: ubuntu-latest
     steps:
       - run:  echo "Job d !"
