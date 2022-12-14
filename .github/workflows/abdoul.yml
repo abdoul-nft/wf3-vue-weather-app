@@ -25,7 +25,7 @@ jobs:
     steps:
       - run:  echo "Job b !"
   c:
-    needs: [a,b]
+    needs: init
     runs-on: ubuntu-latest
     steps:
       - run:  echo "Job c !"
@@ -35,22 +35,22 @@ jobs:
     steps:
       - run:  echo "Job d !"
   e:
-    needs: [c,d]
+    needs: init
     runs-on: ubuntu-latest
     steps:
       - run:  echo "Job e !"
   f:
-    needs: e
+    needs: init
     runs-on: ubuntu-latest
     steps:
       - run:  echo "Job f !"
   g:
-    needs: e
+    needs: init
     runs-on: ubuntu-latest
     steps:
       - run:  echo "Job g !"
   build:
-    needs: [f,g]
+    needs: [a,b,c,d,e,f,g]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
