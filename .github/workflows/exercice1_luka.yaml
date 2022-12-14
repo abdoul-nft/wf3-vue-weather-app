@@ -1,0 +1,115 @@
+name: Vue.js build and deploy
+
+on:
+  push:
+    branches:
+      - luka
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run init
+
+  a:
+    runs-on: ubuntu-latest
+    needs: [init]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run a
+
+  b:
+    runs-on: ubuntu-latest
+    needs: [init]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run b
+
+  c:
+    runs-on: ubuntu-latest
+    needs: [init]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run c
+
+  d:
+    runs-on: ubuntu-latest
+    needs: [init]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run d
+
+  e:
+    runs-on: ubuntu-latest
+    needs: [init, a, b, c, d]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run e
+
+  f:
+    runs-on: ubuntu-latest
+    needs: [init, a, b, c, d]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run f
+
+  g:
+    runs-on: ubuntu-latest
+    needs: [init, a, b, c, d, e, f]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run g
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [init, a, b, c, d, e, f, g]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run build
+  deploy:
+    needs: [init, a, b, c, d, e, f, g, build]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🔎 Deployement"
+  fin:
+    needs: [init, a, b, c, d, e, f, g, build, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Fin"
