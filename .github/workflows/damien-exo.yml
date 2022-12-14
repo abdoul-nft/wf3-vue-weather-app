@@ -27,7 +27,7 @@ jobs:
     - run: npm run test:unit
     # ==========================
   b:
-    needs: init
+    needs: a
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
     - run: npm run test:coverage
     # ========================
   c:
-    needs: init
+    needs: b
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -49,7 +49,7 @@ jobs:
     - run: npm run test:coverage
     # ====================
   d:
-    needs: init
+    needs: c
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -60,7 +60,7 @@ jobs:
     - run: npm run test:coverage
     # ===============
   e:
-    needs: init
+    needs: d
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -71,7 +71,7 @@ jobs:
     - run: npm run lint
   # ===============
   f:
-    needs: init
+    needs: e
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -82,7 +82,7 @@ jobs:
     - run: npm run lint
     # =========================
   g:
-    needs: init
+    needs: f
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -93,7 +93,7 @@ jobs:
     - run: npm run lint
     # =========================
   build:
-    needs: [init, a, b, c, d ,e, f ,g]
+    needs: g
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -104,12 +104,12 @@ jobs:
     - run: npm run build
     # =========================
   deploy:
-    needs: [init, a, b, c, d ,e, f, g, build, ]
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Deployement"
   fin:
-    needs: [init,  a, b, c, d ,e, f, g, build, deploy]
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Le pipeline se termine ici"
