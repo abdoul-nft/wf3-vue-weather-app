@@ -93,7 +93,7 @@ jobs:
     - run: npm run lint
     # =========================
   build:
-    needs: init
+    needs: [init, a, b, c, d ,e, f ,g]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
