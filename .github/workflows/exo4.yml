@@ -1,0 +1,97 @@
+on:
+  push:
+    branches:
+      - flo3
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "🔎 Le pipline commence ici !"
+  a:
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "a"
+  b:
+    needs: [init, a]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "a"
+  c:
+    needs: [init, a, b]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "a"
+  d:
+    needs: [init, a, b, c]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "a"
+  e:
+    needs: [init, a, b, c, d]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "a"
+  f:
+    needs: [init, a, b, c, d, e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "a"
+  g:
+    needs: [init, a, b, c, d, e, f]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: echo "a"
+  build:
+    needs: [a, b, c, d, e, f, g]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run build
+  deploy:
+    needs: [a, b, c, d, e, f, g, build]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🔎 Deployement"
+  fin:
+    needs: [a, b, c, d, e, f, g, build, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🔎 Le pipeline se termine ici"
