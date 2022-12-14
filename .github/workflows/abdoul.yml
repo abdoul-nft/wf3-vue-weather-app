@@ -1,0 +1,71 @@
+name: Vue.js build and deploy
+
+on:
+  push:
+    branches:
+      - abdoul
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - run:  echo "🔎 Le pipline commence ici !"
+  a:
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - run:  echo "Job a !"
+  b:
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - run:  echo "Job b !"
+  c:
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - run:  echo "Job c !"
+  d:
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - run:  echo "Job d !"
+  e:
+    needs: [a,b,c,d]
+    runs-on: ubuntu-latest
+    steps:
+      - run:  echo "Job e !"
+  f:
+    needs: [a,b,c,d]
+    runs-on: ubuntu-latest
+    steps:
+      - run:  echo "Job f !"
+  g:
+    needs: [e,f]
+    runs-on: ubuntu-latest
+    steps:
+      - run:  echo "Job g !"
+  build:
+    needs: g
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - run: npm ci
+    - run: npm run build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "🔎 Deployement"
+  fin:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "🔎 Le pipeline se termine ici"
