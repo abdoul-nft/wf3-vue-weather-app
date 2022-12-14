@@ -22,10 +22,10 @@ import axios from 'axios'
 // ----
 
 // Title of the application
-const title = ref('WF3 Vue - Testing CI/CD')
+const title = ref('WF3 Vue - j\'changé queleque chose')
 
 // Message to display in the footer
-const footerMessage = ref('testdriven.io - 2022')
+const footerMessage = ref('wf3.com - 2022')
 
 // Weather data collected from openweathermap.org
 const weatherData = ref({
