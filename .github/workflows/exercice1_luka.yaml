@@ -13,8 +13,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run init
+      - run: echo "🔎 Le pipline commence ici !"
 
   a:
     runs-on: ubuntu-latest
@@ -24,8 +23,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run a
+      - run: echo "Job A fini"
 
   b:
     runs-on: ubuntu-latest
@@ -35,8 +33,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run b
+      - run: echo "Job B fini"
 
   c:
     runs-on: ubuntu-latest
@@ -46,8 +43,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run c
+      - run: echo "Job C fini"
 
   d:
     runs-on: ubuntu-latest
@@ -57,8 +53,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run d
+      - run: echo "Job D fini"
 
   e:
     runs-on: ubuntu-latest
@@ -68,8 +63,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run e
+      - run: echo "Job E fini"
 
   f:
     runs-on: ubuntu-latest
@@ -79,8 +73,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run f
+      - run: echo "Job F fini"
 
   g:
     runs-on: ubuntu-latest
@@ -90,8 +83,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - run: npm install
-      - run: npm run g
+      - run: echo "Job G fini"
 
   build:
     runs-on: ubuntu-latest
