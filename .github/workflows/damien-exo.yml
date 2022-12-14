@@ -82,7 +82,7 @@ jobs:
     - run: npm run lint
     # =========================
   build:
-    needs: [init, test-unit, test-coverage, lint]
+    needs: [init, a, b, c, d ,e, f ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -93,12 +93,12 @@ jobs:
     - run: npm run build
     # =========================
   deploy:
-    needs: [test-unit, test-coverage, lint, build]
+    needs: [init, a, b, c, d ,e, f, build, ]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Deployement"
   fin:
-    needs: [init, test-unit, test-coverage, lint, build, deploy]
+    needs: [init,  a, b, c, d ,e, f, build, deploy]
     runs-on: ubuntu-latest
     steps:
     - run: echo "🔎 Le pipeline se termine ici"
